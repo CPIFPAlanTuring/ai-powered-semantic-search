@@ -5,7 +5,7 @@ Pendiente de revisar
 A large part of companies critical infromation is stored in relational database and relational database search are usually based on exact word match. With embeddings and vectorial indexes, we can search by meanings while preserving the relational model. Therefore, This project  is about ow to implement semantic search using SQL Server 2025, a language model of Ollama and WideWordImporters database.
 
 Si quieres ver la presentación
-Si quieres ver un video con la explicación del código pincha aquí
+Si quieres ver un video con la explicación del código pincha aquí. Colgar en Youtube de modo que lo vea quien tenga el enlace. Poner aquí el enlace.
 If you want download the code aquí: <a href="WWI_StockItems_SemanticSearch.sql">WWI_StockItems_SemanticSearch.sql</a>
 
 -->
