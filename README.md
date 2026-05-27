@@ -18,6 +18,6 @@ This project demonstrates how to implement semantic search in SQL Server 2025 us
 
 ## Resources
 
-- [View the presentation](./presentation.pdf)
+- [View the presentation](./AI_Semantic_Search_SQLServer_Ollama.pdf)
 - [Watch the code explanation video](VIDEO_LINK_HERE)
 - [Download the SQL script](./WWI_StockItems_SemanticSearch.sql)
