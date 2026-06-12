@@ -290,7 +290,7 @@ BEGIN
     DECLARE @queryEmbedding vector(768);
 
     /*
-        -- Generates the embedding for the text entered by the user.
+        -- Generates the embedding for the user's query
         -- SQL Server calls the external model OllamaNomicEmbed,
            which in turn uses Ollama with nomic-embed-text.
     */
@@ -302,8 +302,10 @@ BEGIN
             )
             AS vector(768)
         );
-
-   
+    /*
+        -- Use VECTOR_SEARCH to compare the query vector with stored 
+           product embeddings and return the closest product names
+    */
     SELECT
         ps.StockItemName AS ProductName
     FROM VECTOR_SEARCH
@@ -330,19 +332,34 @@ EXEC dbo.find_relevant_product_names_vector_index
 GO
 
 /*
-  - Notice that some results, although they do not contain “USB”,
-    still belong to the same semantic context of 
-    technology-related items.
+    Notice:
+        -Some results, although they do not contain “USB”,
+         still belong to the same semantic context of 
+         technology-related items.
 
-  - The only somewhat less related row would be: 
-    Air cushion machine (Blue)
-    This one seems less connected to “usb gadget”.
-    It may have appeared because the model placed it 
-    close to “gadget”-type products. */
+        - Semantic search may return some less relevant results.
+          This can happen when the embedding model considers them
+          close to part of the user query.
+ */
 
--- I can also ask in another language
+/*
+    Semantic search allows queries in different languages.
+    However, results are usually better when the query language
+    is close to the language used in the stored product text.
+
+    For example: To search for "I’m looking for a funny 
+                                computer-related gift"
+*/
+-- In Spanish
 EXEC dbo.find_relevant_product_names_vector_index
     @prompt = N'busco un regalo gracioso relacionado con informática',
+    @top = 10,
+    @min_similarity = 0.3;
+GO
+
+-- In Setswana
+EXEC dbo.find_relevant_product_names_vector_index
+    @prompt = N'Ke batla mpho e e tshegisang e e amanang le dikhomphutha',
     @top = 10,
     @min_similarity = 0.3;
 GO
